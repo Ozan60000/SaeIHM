@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="Puissance4_BD/Puissance4_BD.csproj" Id="ca56fc43-d55a-4867-9bfa-62dcfbd6622d" />
+  <Project Path="Puissance4_Systeme/Puissance4_Systeme.csproj" Id="248bde60-9044-4fd7-8f8a-2a3a48f328c5" />
   <Project Path="SAE-IHM/SAE-IHM.csproj" />
 </Solution>

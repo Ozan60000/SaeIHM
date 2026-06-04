@@ -9,4 +9,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Puissance4_Systeme\Puissance4_Systeme.csproj" />
+  </ItemGroup>
+
 </Project>
