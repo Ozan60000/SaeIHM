@@ -1,0 +1,44 @@
+﻿<Window x:Class="SAE_IHM.FenetreJeu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Puissance 4 - En cours" Height="600" Width="700"
+        WindowStartupLocation="CenterScreen"
+        Background="#ECF0F1">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+            <TextBlock Text="C'est au tour de : " FontSize="20" FontWeight="Bold" Foreground="#2C3E50"/>
+            <TextBlock Text="{Binding NomJoueurCourant}" FontSize="20" FontWeight="Bold" Foreground="#E74C3C"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Background="#3498DB" CornerRadius="10" Padding="10">
+
+            <ItemsControl ItemsSource="{Binding CasesPlateau}">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="{Binding NbLignes}" Columns="{Binding NbColonnes}"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Background="Transparent" BorderThickness="0" Click="Case_Click">
+                            <Grid Margin="5">
+                                <Ellipse Fill="White" Stretch="Uniform"/>
+                                <Ellipse Fill="{Binding CouleurJeton}" Stretch="Uniform" Margin="2"/>
+                            </Grid>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        </Border>
+    </Grid>
+</Window>
