@@ -54,6 +54,23 @@ namespace Puissance4_Systeme
             return _plateau[ligne, colonne];
         }
 
+        // --- NOUVELLE MÉTHODE POUR L'IA ---
+        // Permet de retirer le pion le plus haut dans la colonne
+        public void RetirerPion(int colonne)
+        {
+            if (colonne < 0 || colonne >= NbColonnes) return;
+
+            // On cherche le pion le plus haut dans la colonne (le premier qui n'est pas null)
+            for (int l = 0; l < NbLignes; l++)
+            {
+                if (_plateau[l, colonne] != null)
+                {
+                    _plateau[l, colonne] = null; // On vide la case
+                    break;
+                }
+            }
+        }
+
         // Méthode principale pour vérifier si le dernier coup est gagnant
         public bool VerifierVictoire(int derniereLigne, int derniereColonne, int nbAAligner)
         {
@@ -119,5 +136,5 @@ namespace Puissance4_Systeme
             }
             return compteur;
         }
-    } // <-- Fermeture de la classe Grille
-} // <-- Fermeture du namespace Puissance4_Systeme
+    }
+}
