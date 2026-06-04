@@ -1,0 +1,42 @@
+﻿<Window x:Class="SAE_IHM.ChoixAdversaire"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Puissance 4 - Choix de l'adversaire" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="280"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="0,10,0,10"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Background" Value="#FF3498DB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#FFECF0F1">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <TextBlock Text="Choix de l'adversaire"
+                       FontSize="36"
+                       FontWeight="Bold"
+                       Foreground="#FF2C3E50"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,40"/>
+
+            <Button x:Name="BtnAdvVirtuel" Content="Adversaire virtuel" Click="BtnAdvVirtuel_Click"/>
+            <Button x:Name="BtnAmiLocal" Content="Ami local" Click="BtnAmiLocal_Click"/>
+            <Button x:Name="BtnAdvLigne" Content="Adversaire en ligne" Click="BtnAdvLigne_Click"/>
+
+            <Button x:Name="BtnRetour"
+                    Content="Retour"
+                    Background="#FF95A5A6"
+                    Margin="0,30,0,0"
+                    Click="BtnRetour_Click"/>
+
+        </StackPanel>
+    </Grid>
+</Window>

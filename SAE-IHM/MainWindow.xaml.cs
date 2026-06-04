@@ -19,17 +19,46 @@ namespace SAE_IHM
         // --- ÉVÉNEMENTS DES BOUTONS ---
 
         private void BtnJouer_Click(object sender, RoutedEventArgs e)
-        {
-            // 1. On instancie la fenêtre de jeu
+{
+    // 1. On ouvre d'abord le menu Jouer
+    MenuJouer menuJouer = new MenuJouer();
+    bool? veutNouvellePartie = menuJouer.ShowDialog();
+
+    // Si l'utilisateur n'a pas choisi de faire une nouvelle partie (clic Retour
+    // ou fenêtre fermée), on revient au menu principal
+    if (veutNouvellePartie != true)
+    {
+        return;
+    }
+
+    // 2. On enchaîne sur le choix d'adversaire
+    ChoixAdversaire fenetreChoix = new ChoixAdversaire();
+    bool? aChoisi = fenetreChoix.ShowDialog();
+
+    if (aChoisi != true)
+    {
+        return;
+    }
+
+    // 3. Configuration du mode contre IA
+    if (fenetreChoix.TypeAdversaire == "Virtuel")
+    {
+        _modeContreIA = true;
+    }
+    else
+    {
+        _modeContreIA = false;
+    }
+
+            // On instancie la fenêtre de jeu et on lui transmet les paramètres
             FenetreJeu ecranJeu = new FenetreJeu();
+            ecranJeu.TypeAdversaire = fenetreChoix.TypeAdversaire;
+            ecranJeu.NbLignes = _nbLignes;
+            ecranJeu.NbColonnes = _nbColonnes;
+            ecranJeu.NbAAligner = _nbAAligner;
 
-            // 2. On masque le menu principal
             this.Hide();
-
-            // 3. On ouvre l'écran de jeu en mode bloquant
             ecranJeu.ShowDialog();
-
-            // 4. Une fois la partie terminée ou la fenêtre fermée, on réaffiche le menu
             this.Show();
         }
 
