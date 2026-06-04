@@ -17,9 +17,14 @@ namespace SAE_IHM
             MessageBox.Show("Lancement de la partie en cours de développement...", "Jouer", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        // On ne garde que la BONNE version du bouton Paramètres !
         private void BtnParametres_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Ouverture des paramètres en cours de développement...", "Paramètres", MessageBoxButton.OK, MessageBoxImage.Information);
+            // On instancie la fenêtre
+            Parametres fenetreParam = new Parametres();
+
+            // On l'ouvre en mode "Modal" (bloquant)
+            fenetreParam.ShowDialog();
         }
 
         private void BtnQuitter_Click(object sender, RoutedEventArgs e)

@@ -6,7 +6,7 @@ namespace Puissance4_Systeme
 {
     public class Grille
     {
-        private Pion[,] _plateau;
+        private Pion?[,] _plateau; // Ajoute le point d'interrogation ici
 
         public int NbLignes { get; private set; }
         public int NbColonnes { get; private set; }
@@ -46,7 +46,7 @@ namespace Puissance4_Systeme
         }
 
         // Permet de récupérer un pion à une case précise (très utile pour vérifier la victoire plus tard)
-        public Pion GetPion(int ligne, int colonne)
+        public Pion? GetPion(int ligne, int colonne) // Ajoute le point d'interrogation ici
         {
             if (ligne < 0 || ligne >= NbLignes || colonne < 0 || colonne >= NbColonnes)
                 return null;

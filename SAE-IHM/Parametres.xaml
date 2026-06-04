@@ -1,0 +1,88 @@
+﻿<Window x:Class="SAE_IHM.Parametres"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Paramètres du Jeu" Height="450" Width="500"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#FFECF0F1" Margin="20">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="400">
+
+            <TextBlock Text="RÉGLAGES" FontSize="28" FontWeight="Bold" Foreground="#FF2C3E50" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+            <GroupBox Header="Adversaire" FontWeight="Bold" Margin="0,0,0,15" Padding="10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <RadioButton x:Name="RadHumain" Content="Joueur Humain" IsChecked="True" Margin="0,0,30,0" FontWeight="Normal"/>
+                    <RadioButton x:Name="RadIA" Content="Joueur IA" FontWeight="Normal"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Dimensions de la grille" FontWeight="Bold" Margin="0,0,0,15" Padding="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0" TextElement.FontWeight="Normal">
+                        <TextBlock Text="Lignes (4 à 10):" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="CboLignes" SelectedIndex="2">
+                            <ComboBoxItem Content="4"/>
+                            <ComboBoxItem Content="5"/>
+                            <ComboBoxItem Content="6"/>
+                            <ComboBoxItem Content="7"/>
+                            <ComboBoxItem Content="8"/>
+                            <ComboBoxItem Content="9"/>
+                            <ComboBoxItem Content="10"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0" TextElement.FontWeight="Normal">
+                        <TextBlock Text="Colonnes (4 à 10):" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="CboColonnes" SelectedIndex="3">
+                            <ComboBoxItem Content="4"/>
+                            <ComboBoxItem Content="5"/>
+                            <ComboBoxItem Content="6"/>
+                            <ComboBoxItem Content="7"/>
+                            <ComboBoxItem Content="8"/>
+                            <ComboBoxItem Content="9"/>
+                            <ComboBoxItem Content="10"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Règle de victoire" FontWeight="Bold" Margin="0,0,0,20" Padding="10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" TextElement.FontWeight="Normal">
+                    <TextBlock Text="Pions à aligner :" Margin="0,0,15,0"/>
+                    <ComboBox x:Name="CboAlignement" SelectedIndex="1" Width="80">
+                        <ComboBoxItem Content="3"/>
+                        <ComboBoxItem Content="4"/>
+                        <ComboBoxItem Content="5"/>
+                        <ComboBoxItem Content="6"/>
+                    </ComboBox>
+                </StackPanel>
+            </GroupBox>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="BtnValider" Content="Valider" Background="#FF2ECC71" Foreground="White" Click="BtnValider_Click"/>
+                <Button x:Name="BtnAnnuler" Content="Annuler" Background="#FFE74C3C" Foreground="White" Click="BtnAnnuler_Click"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+</Window>

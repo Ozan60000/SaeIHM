@@ -15,7 +15,7 @@ namespace Puissance4_Systeme
 
         public int NbPionsGagnant { get; private set; }
         public bool EstTerminee { get; private set; }
-        public Joueur Gagnant { get; private set; }
+        public Joueur? Gagnant { get; private set; } // Ajoute le point d'interrogation ici
         public bool EstEgalite { get; private set; }
 
         public Partie(int lignes, int colonnes, int nbPionsGagnant, Joueur j1, Joueur j2)
