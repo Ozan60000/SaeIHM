@@ -1,24 +1,46 @@
-﻿using System.Text;
+﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SAE_IHM
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        // --- ÉVÉNEMENTS DES BOUTONS ---
+
+        private void BtnJouer_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Lancement de la partie en cours de développement...", "Jouer", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void BtnParametres_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Ouverture des paramètres en cours de développement...", "Paramètres", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void BtnQuitter_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        // --- GESTION DE LA FERMETURE ---
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            MessageBoxResult resultat = MessageBox.Show(
+                "Êtes-vous sûr de vouloir quitter le Puissance 4 ?",
+                "Confirmation de sortie",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (resultat == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

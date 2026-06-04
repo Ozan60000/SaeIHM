@@ -3,10 +3,38 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SAE_IHM"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="309,182,0,0" TextWrapping="Wrap" Text="COUCOUUUUUCROCO" VerticalAlignment="Top" Width="120"/>
+        Title="Puissance 4 - Menu Principal" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="0,10,0,10"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Background" Value="#FF3498DB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#FFECF0F1">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <TextBlock Text="PUISSANCE 4" 
+                       FontSize="48" 
+                       FontWeight="Bold" 
+                       Foreground="#FF2C3E50" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,0,0,40"/>
+
+            <Button x:Name="BtnJouer" Content="Jouer" Click="BtnJouer_Click" />
+            <Button x:Name="BtnParametres" Content="Paramètres" Click="BtnParametres_Click" />
+            <Button x:Name="BtnQuitter" Content="Quitter le jeu" Click="BtnQuitter_Click" />
+
+        </StackPanel>
     </Grid>
 </Window>
