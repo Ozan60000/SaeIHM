@@ -5,6 +5,12 @@ namespace SAE_IHM
 {
     public partial class MainWindow : Window
     {
+        // Variables de configuration globales (par défaut : grille classique)
+        private int _nbLignes = 6;
+        private int _nbColonnes = 7;
+        private int _nbAAligner = 4;
+        private bool _modeContreIA = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -14,17 +20,40 @@ namespace SAE_IHM
 
         private void BtnJouer_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Lancement de la partie en cours de développement...", "Jouer", MessageBoxButton.OK, MessageBoxImage.Information);
+            // 1. On instancie la fenêtre de jeu
+            FenetreJeu ecranJeu = new FenetreJeu();
+
+            // 2. On masque le menu principal
+            this.Hide();
+
+            // 3. On ouvre l'écran de jeu en mode bloquant
+            ecranJeu.ShowDialog();
+
+            // 4. Une fois la partie terminée ou la fenêtre fermée, on réaffiche le menu
+            this.Show();
         }
 
-        // On ne garde que la BONNE version du bouton Paramètres !
         private void BtnParametres_Click(object sender, RoutedEventArgs e)
         {
             // On instancie la fenêtre
             Parametres fenetreParam = new Parametres();
 
-            // On l'ouvre en mode "Modal" (bloquant)
-            fenetreParam.ShowDialog();
+            // On l'ouvre en mode "Modal" (bloquant) et on regarde s'il a cliqué sur Valider
+            bool? aValide = fenetreParam.ShowDialog();
+
+            // Si l'utilisateur a validé, on met à jour nos variables internes
+            if (aValide == true)
+            {
+                _nbLignes = fenetreParam.NbLignes;
+                _nbColonnes = fenetreParam.NbColonnes;
+                _nbAAligner = fenetreParam.NbAAligner;
+                _modeContreIA = fenetreParam.ModeContreIA;
+
+                MessageBox.Show($"Paramètres enregistrés !\nGrille : {_nbLignes}x{_nbColonnes} | Aligner : {_nbAAligner}",
+                                "Configuration",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+            }
         }
 
         private void BtnQuitter_Click(object sender, RoutedEventArgs e)
