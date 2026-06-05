@@ -5,10 +5,7 @@ namespace SAE_IHM
 {
     public partial class MainWindow : Window
     {
-        // Variables de configuration globales (par défaut : grille classique)
-        private int _nbLignes = 6;
-        private int _nbColonnes = 7;
-        private int _nbAAligner = 4;
+        // Mode contre l'IA (utilisé lors du lancement de la partie)
         private bool _modeContreIA = false;
 
         public MainWindow()
@@ -19,43 +16,47 @@ namespace SAE_IHM
         // --- ÉVÉNEMENTS DES BOUTONS ---
 
         private void BtnJouer_Click(object sender, RoutedEventArgs e)
-{
-    // 1. On ouvre d'abord le menu Jouer
-    MenuJouer menuJouer = new MenuJouer();
-    bool? veutNouvellePartie = menuJouer.ShowDialog();
+        {
+            // 1. Menu Jouer
+            MenuJouer menuJouer = new MenuJouer();
+            bool? veutNouvellePartie = menuJouer.ShowDialog();
+            if (veutNouvellePartie != true)
+            {
+                return;
+            }
 
-    // Si l'utilisateur n'a pas choisi de faire une nouvelle partie (clic Retour
-    // ou fenêtre fermée), on revient au menu principal
-    if (veutNouvellePartie != true)
-    {
-        return;
-    }
+            // 2. Choix de l'adversaire
+            ChoixAdversaire fenetreChoix = new ChoixAdversaire();
+            bool? aChoisi = fenetreChoix.ShowDialog();
+            if (aChoisi != true)
+            {
+                return;
+            }
 
-    // 2. On enchaîne sur le choix d'adversaire
-    ChoixAdversaire fenetreChoix = new ChoixAdversaire();
-    bool? aChoisi = fenetreChoix.ShowDialog();
+            // 3. Règles de la partie (taille grille, alignement)
+            Regles fenetreRegles = new Regles();
+            bool? reglesOk = fenetreRegles.ShowDialog();
+            if (reglesOk != true)
+            {
+                return;
+            }
 
-    if (aChoisi != true)
-    {
-        return;
-    }
+            // 4. Configuration du mode contre IA
+            if (fenetreChoix.TypeAdversaire == "Virtuel")
+            {
+                _modeContreIA = true;
+            }
+            else
+            {
+                _modeContreIA = false;
+            }
 
-    // 3. Configuration du mode contre IA
-    if (fenetreChoix.TypeAdversaire == "Virtuel")
-    {
-        _modeContreIA = true;
-    }
-    else
-    {
-        _modeContreIA = false;
-    }
-
-            // On instancie la fenêtre de jeu et on lui transmet les paramètres
+            // 5. Lancement de la partie avec les paramètres choisis
             FenetreJeu ecranJeu = new FenetreJeu();
             ecranJeu.TypeAdversaire = fenetreChoix.TypeAdversaire;
-            ecranJeu.NbLignes = _nbLignes;
-            ecranJeu.NbColonnes = _nbColonnes;
-            ecranJeu.NbAAligner = _nbAAligner;
+            ecranJeu.NbLignes = fenetreRegles.NbLignes;
+            ecranJeu.NbColonnes = fenetreRegles.NbColonnes;
+            ecranJeu.NbAAligner = fenetreRegles.NbAAligner;
 
             this.Hide();
             ecranJeu.ShowDialog();
@@ -64,25 +65,9 @@ namespace SAE_IHM
 
         private void BtnParametres_Click(object sender, RoutedEventArgs e)
         {
-            // On instancie la fenêtre
+            // L'écran Paramètres servira plus tard pour l'accessibilité et la personnalisation
             Parametres fenetreParam = new Parametres();
-
-            // On l'ouvre en mode "Modal" (bloquant) et on regarde s'il a cliqué sur Valider
-            bool? aValide = fenetreParam.ShowDialog();
-
-            // Si l'utilisateur a validé, on met à jour nos variables internes
-            if (aValide == true)
-            {
-                _nbLignes = fenetreParam.NbLignes;
-                _nbColonnes = fenetreParam.NbColonnes;
-                _nbAAligner = fenetreParam.NbAAligner;
-                _modeContreIA = fenetreParam.ModeContreIA;
-
-                MessageBox.Show($"Paramètres enregistrés !\nGrille : {_nbLignes}x{_nbColonnes} | Aligner : {_nbAAligner}",
-                                "Configuration",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
-            }
+            fenetreParam.ShowDialog();
         }
 
         private void BtnQuitter_Click(object sender, RoutedEventArgs e)
