@@ -14,10 +14,11 @@
                        HorizontalAlignment="Center"
                        Margin="0,0,0,20"/>
 
-            <ListBox x:Name="LstParties" Height="250" Margin="0,0,0,15"/>
+            <ListBox x:Name="LstParties" Height="250" Margin="0,0,0,15"
+                     SelectionChanged="LstParties_SelectionChanged"/>
 
             <TextBlock x:Name="LblMessage"
-                       Text="Aucune partie en pause à reprendre."
+                       Text="Cliquez sur une partie pour la reprendre."
                        Foreground="Gray"
                        FontStyle="Italic"
                        HorizontalAlignment="Center"

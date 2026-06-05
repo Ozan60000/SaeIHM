@@ -14,10 +14,11 @@
                        HorizontalAlignment="Center"
                        Margin="0,0,0,20"/>
 
-            <ListBox x:Name="LstHistorique" Height="250" Margin="0,0,0,15"/>
+            <ListBox x:Name="LstHistorique" Height="250" Margin="0,0,0,15"
+                     SelectionChanged="LstHistorique_SelectionChanged"/>
 
             <TextBlock x:Name="LblMessage"
-                       Text="Aucune partie enregistrée pour le moment."
+                       Text="Cliquez sur une partie pour la revoir."
                        Foreground="Gray"
                        FontStyle="Italic"
                        HorizontalAlignment="Center"
