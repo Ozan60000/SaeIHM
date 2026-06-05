@@ -1,38 +1,40 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 
 namespace SAE_IHM
 {
     public partial class Parametres : Window
     {
-        // Propriétés accessibles depuis la MainWindow pour lire les réglages
-        public int NbLignes { get; private set; }
-        public int NbColonnes { get; private set; }
-        public int NbAAligner { get; private set; }
-        public bool ModeContreIA { get; private set; }
-
         public Parametres()
         {
             InitializeComponent();
         }
 
-        private void BtnValider_Click(object sender, RoutedEventArgs e)
+        private void SldTailleTexte_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // On récupère les valeurs sélectionnées dans les ComboBox
-            NbLignes = Convert.ToInt32(((ComboBoxItem)CboLignes.SelectedItem).Content);
-            NbColonnes = Convert.ToInt32(((ComboBoxItem)CboColonnes.SelectedItem).Content);
-            NbAAligner = Convert.ToInt32(((ComboBoxItem)CboAlignement.SelectedItem).Content);
-            ModeContreIA = RadIA.IsChecked == true;
-
-            // La propriété DialogResult à 'true' indique que l'utilisateur a bien validé ses choix
-            this.DialogResult = true;
+            // On change la taille du "A" d'aperçu pour visualiser le changement
+            if (LblApercu != null)
+            {
+                LblApercu.FontSize = e.NewValue;
+            }
         }
 
-        private void BtnAnnuler_Click(object sender, RoutedEventArgs e)
+        private void BtnCouleurs_Click(object sender, RoutedEventArgs e)
         {
-            // On ferme simplement la fenêtre sans valider
-            this.DialogResult = false;
+            // Ouverture du pop-up de choix de couleur
+            ChoixCouleur fenetreCouleur = new ChoixCouleur();
+            fenetreCouleur.ShowDialog();
+        }
+
+        private void BtnFormes_Click(object sender, RoutedEventArgs e)
+        {
+            // Ouverture du pop-up de choix de forme
+            ChoixForme fenetreForme = new ChoixForme();
+            fenetreForme.ShowDialog();
+        }
+
+        private void BtnFermer_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
