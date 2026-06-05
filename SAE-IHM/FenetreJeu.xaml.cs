@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -7,7 +6,7 @@ namespace SAE_IHM
 {
     public partial class FenetreJeu : Window
     {
-        // Propriétés publiques qu'on alimente depuis MainWindow avant ShowDialog
+        // Paramètres reçus depuis la MainWindow
         public string TypeAdversaire { get; set; } = "Local";
         public int NbLignes { get; set; } = 6;
         public int NbColonnes { get; set; } = 7;
@@ -20,10 +19,7 @@ namespace SAE_IHM
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // Titre avec la date du jour
-            LblTitre.Text = "Partie 1 du " + DateTime.Now.ToString("dd/MM/yyyy");
-
-            // Nom du joueur 2 selon l'adversaire choisi
+            // Nom du joueur 2 selon le type d'adversaire choisi
             if (TypeAdversaire == "Virtuel")
             {
                 LblJoueur2.Text = "Ordinateur";
@@ -33,7 +29,10 @@ namespace SAE_IHM
                 LblJoueur2.Text = "Joueur 2";
             }
 
-            // Construction de la grille de jeu
+            // Affichage initial du tour
+            LblTourJoueur.Text = "C'est au tour de " + LblJoueur1.Text;
+
+            // Construction visuelle de la grille
             GrillePlateau.Rows = NbLignes;
             GrillePlateau.Columns = NbColonnes;
 
