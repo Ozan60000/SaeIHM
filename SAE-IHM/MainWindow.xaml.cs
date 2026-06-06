@@ -42,7 +42,18 @@ namespace SAE_IHM
 
             this.Hide();
             ecranJeu.ShowDialog();
-            this.Show();
+
+            // On essaie de réafficher le menu. 
+            // Si le joueur a cliqué sur "Quitter", la fenêtre est détruite et ça va échouer.
+            // On attrape l'erreur en silence pour une fermeture propre !
+            try
+            {
+                this.Show();
+            }
+            catch
+            {
+                // L'application est en train de se fermer, on ne fait rien.
+            }
         }
 
         private void BtnParametres_Click(object sender, RoutedEventArgs e)
