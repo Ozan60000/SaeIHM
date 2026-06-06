@@ -8,7 +8,7 @@
 
 Bienvenue sur le dépôt de notre projet transversal de fin d'année ! 
 
-Ce projet est une implémentation complète et personnalisable du célèbre jeu \*\*Puissance 4\*\*, développée en \*\*C#\*\* avec une interface graphique \*\*WPF\*\*. Il met en pratique les concepts d'ergonomie (IHM), de conception orientée objet et d'intelligence artificielle.
+Ce projet est une implémentation jeu \*\*Puissance 4\*\*, développée en \*\*C#\*\* avec une interface graphique \*\*WPF\*\*. Il met en pratique les concepts d'ergonomie (IHM), de conception orientée objet et d'intelligence artificielle.
 
 
 
@@ -52,13 +52,11 @@ Ce projet est une implémentation complète et personnalisable du célèbre jeu 
 
 
 
-Le projet respecte une séparation stricte entre le moteur logique et l'interface utilisateur, garantissant un code robuste et évolutif :
-
-
+Le projet respecte une séparation entre le moteur logique et l'interface utilisateur :
 
 1\.  \*\*`Puissance4\_Systeme` (Bibliothèque de classes) :\*\* Le "cerveau" de l'application. Contient la logique mathématique, la physique de la grille (gravité des pions), la détection générique des victoires et les algorithmes de l'Intelligence Artificielle.
 
-2\.  \*\*`SAE\_IHM` (Application WPF) :\*\* L'interface graphique. Gère l'affichage XAML, la navigation fluide entre les menus en cascade (Menu Principal ➔ Adversaire ➔ Règles ➔ Jeu), les pop-ups et la boucle temporelle (`DispatcherTimer`).
+2\.  \*\*`SAE\_IHM` (Application WPF) :\*\* L'interface graphique. Gère l'affichage XAML, la navigation entre les menus en cascade (Menu Principal ➔ Adversaire ➔ Règles ➔ Jeu), les pop-ups et la boucle temporelle (`DispatcherTimer`).
 
 
 
@@ -70,7 +68,7 @@ Le projet respecte une séparation stricte entre le moteur logique et l'interfac
 
 \*   \*\*Interface Graphique :\*\* WPF (Windows Presentation Foundation) / XAML
 
-\*   \*\*IDE :\*\* Visual Studio Community
+\*   \*\*IDE :\*\* Visual Studio
 
 \*   \*\*Gestion de version :\*\* Git \& GitHub
 
