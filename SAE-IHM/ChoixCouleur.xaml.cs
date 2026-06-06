@@ -18,7 +18,7 @@ namespace SAE_IHM
         {
             // On récupère le nom de la couleur via le Tag du bouton
             Button btn = (Button)sender;
-            string nomCouleur = btn.Tag.ToString();
+            string nomCouleur = btn.Tag?.ToString() ?? "";
 
             // On applique la couleur au joueur actuellement sélectionné
             if (RadJ1.IsChecked == true)

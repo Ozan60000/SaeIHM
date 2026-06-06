@@ -74,7 +74,7 @@ namespace Puissance4_Systeme
         // Méthode principale pour vérifier si le dernier coup est gagnant
         public bool VerifierVictoire(int derniereLigne, int derniereColonne, int nbAAligner)
         {
-            Pion pionJoue = _plateau[derniereLigne, derniereColonne];
+            Pion? pionJoue = _plateau[derniereLigne, derniereColonne];
             if (pionJoue == null) return false; // Sécurité
 
             int idJoueur = pionJoue.JoueurId;
@@ -122,7 +122,7 @@ namespace Puissance4_Systeme
             while (l >= 0 && l < NbLignes && c >= 0 && c < NbColonnes)
             {
                 // Si on tombe sur un pion du même joueur, on incrémente et on continue d'avancer
-                if (_plateau[l, c] != null && _plateau[l, c].JoueurId == idJoueur)
+                if (_plateau[l, c] != null && _plateau[l, c]!.JoueurId == idJoueur)
                 {
                     compteur++;
                     l += dLi;

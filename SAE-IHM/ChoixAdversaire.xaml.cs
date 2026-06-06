@@ -6,7 +6,7 @@ namespace SAE_IHM
     {
         // Propriété lue par la MainWindow après fermeture pour savoir quoi faire ensuite
         // Valeurs possibles : "Virtuel", "Local", "Ligne"
-        public string TypeAdversaire { get; private set; }
+        public string TypeAdversaire { get; private set; } = "Local";
 
         public ChoixAdversaire()
         {

@@ -5,9 +5,6 @@ namespace SAE_IHM
 {
     public partial class MainWindow : Window
     {
-        // Mode contre l'IA (utilisé lors du lancement de la partie)
-        private bool _modeContreIA = false;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -41,17 +38,7 @@ namespace SAE_IHM
                 return;
             }
 
-            // 4. Configuration du mode contre IA
-            if (fenetreChoix.TypeAdversaire == "Virtuel")
-            {
-                _modeContreIA = true;
-            }
-            else
-            {
-                _modeContreIA = false;
-            }
-
-            // 5. Lancement de la partie avec les paramètres choisis
+            // 4. Lancement de la partie avec les paramètres choisis
             FenetreJeu ecranJeu = new FenetreJeu();
             ecranJeu.TypeAdversaire = fenetreChoix.TypeAdversaire;
             ecranJeu.NbLignes = fenetreRegles.NbLignes;

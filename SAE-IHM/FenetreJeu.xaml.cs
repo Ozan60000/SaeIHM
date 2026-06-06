@@ -14,8 +14,8 @@ namespace SAE_IHM
         public int NbAAligner { get; set; } = 4;
 
         // État interne de la partie
-        private int[,] _grilleEtat;       // 0 = vide, 1 = J1, 2 = J2
-        private Button[,] _grilleBoutons; // Pour récupérer les boutons par position
+        private int[,] _grilleEtat = null!;   // 0 = vide, 1 = J1, 2 = J2
+        private Button[,] _grilleBoutons = null!; // Pour récupérer les boutons par position
         private int _joueurCourant = 1;   // 1 ou 2
 
         public FenetreJeu()

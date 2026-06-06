@@ -17,7 +17,7 @@ namespace SAE_IHM
         private void BtnForme_Click(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
-            string nomForme = btn.Tag.ToString();
+            string nomForme = btn.Tag?.ToString() ?? "";
 
             if (RadJ1.IsChecked == true)
             {
