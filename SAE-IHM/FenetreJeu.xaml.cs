@@ -17,6 +17,8 @@ namespace SAE_IHM
         // --- LE VRAI MOTEUR DE JEU ---
         private Partie _maPartie = null!;
         private Button[,] _grilleBoutons = null!;
+        private int _scoreJ1 = 0;
+        private int _scoreJ2 = 0;
 
         public FenetreJeu()
         {
@@ -109,25 +111,69 @@ namespace SAE_IHM
                 rond.Fill = (idJoueurActuel == 1) ? Brushes.Red : Brushes.Gold;
 
                 // --- VÉRIFICATION DE LA VICTOIRE ---
+                // --- VÉRIFICATION DE LA VICTOIRE ---
                 if (_maPartie.EstTerminee)
                 {
+                    string messageTitre;
+
                     if (_maPartie.EstEgalite)
                     {
-                        MessageBox.Show("Match nul ! La grille est pleine.", "Fin de partie", MessageBoxButton.OK, MessageBoxImage.Information);
+                        messageTitre = "Égalité";
                     }
                     else
                     {
-                        MessageBox.Show($"Victoire de {_maPartie.Gagnant!.Nom} !", "Fin de partie", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        messageTitre = $"Victoire de {_maPartie.Gagnant!.Nom}";
+                        // On incrémente le bon score
+                        if (_maPartie.Gagnant.Id == 1) _scoreJ1++;
+                        else _scoreJ2++;
+                    }
+
+                    string texteScore = $"Score total des parties : (J1) {_scoreJ1} - {_scoreJ2} (J2)";
+
+                    // On ouvre la nouvelle fenêtre de fin
+                    FinPartie fenetreFin = new FinPartie(messageTitre, texteScore);
+                    fenetreFin.ShowDialog();
+
+                    // On regarde ce que le joueur a choisi
+                    if (fenetreFin.ActionChoisie == "Relancer")
+                    {
+                        RelancerPartie();
+                    }
+                    else if (fenetreFin.ActionChoisie == "Quitter")
+                    {
+                        Application.Current.Shutdown(); // Coupe tout le programme
+                    }
+                    else // "Menu"
+                    {
+                        this.Close(); // Ferme la fenêtre de jeu, ce qui ramènera au menu principal
                     }
                 }
                 else
                 {
                     // On met à jour le texte du tour suivant
                     LblTourJoueur.Text = "C'est au tour de " + (_maPartie.JoueurCourant.Id == 1 ? LblJoueur1.Text : LblJoueur2.Text);
-
-                    // TODO: Si on joue contre l'IA, c'est ici qu'on appellera la méthode de Thomas !
                 }
             }
+        }
+        private void RelancerPartie()
+        {
+            // 1. On recrée une partie neuve côté moteur
+            Joueur j1 = _maPartie.Joueur1;
+            Joueur j2 = _maPartie.Joueur2;
+            _maPartie = new Partie(NbLignes, NbColonnes, NbAAligner, j1, j2);
+
+            // 2. On blanchit tous les cercles côté visuel
+            for (int ligne = 0; ligne < NbLignes; ligne++)
+            {
+                for (int colonne = 0; colonne < NbColonnes; colonne++)
+                {
+                    Ellipse rond = (Ellipse)_grilleBoutons[ligne, colonne].Content;
+                    rond.Fill = Brushes.White;
+                }
+            }
+
+            // 3. On remet l'affichage du tour à zéro
+            LblTourJoueur.Text = "C'est au tour de " + LblJoueur1.Text;
         }
     }
 }
