@@ -1,7 +1,7 @@
 ﻿<Window x:Class="SAE_IHM.Regles"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Règles de la partie" Height="400" Width="500"
+        Title="Règles de la partie" Height="600" Width="500"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -20,10 +20,10 @@
     </Window.Resources>
 
     <Grid Background="#FFECF0F1" Margin="20">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="400">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="420">
 
-            <TextBlock Text="RÈGLES" FontSize="28" FontWeight="Bold" 
-                       Foreground="#FF2C3E50" HorizontalAlignment="Center" 
+            <TextBlock Text="RÈGLES" FontSize="28" FontWeight="Bold"
+                       Foreground="#FF2C3E50" HorizontalAlignment="Center"
                        Margin="0,0,0,20"/>
 
             <GroupBox Header="Dimensions de la grille" FontWeight="Bold" Margin="0,0,0,15" Padding="10">
@@ -59,6 +59,28 @@
                         </ComboBox>
                     </StackPanel>
                 </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Chronomètre (durée de la partie par joueur)" FontWeight="Bold" Margin="0,0,0,15" Padding="10">
+                <StackPanel TextElement.FontWeight="Normal">
+                    <CheckBox x:Name="ChkChrono" Content="Activer le chronomètre" Margin="0,0,0,10"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" IsEnabled="{Binding IsChecked, ElementName=ChkChrono}">
+                        <RadioButton x:Name="RadChrono1" Content="1 min" Margin="0,0,15,0"/>
+                        <RadioButton x:Name="RadChrono5" Content="5 min" IsChecked="True" Margin="0,0,15,0"/>
+                        <RadioButton x:Name="RadChrono10" Content="10 min"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Temps de réflexion (par joueur)" FontWeight="Bold" Margin="0,0,0,15" Padding="10">
+                <StackPanel TextElement.FontWeight="Normal">
+                    <CheckBox x:Name="ChkReflexion" Content="Activer le temps de réflexion" Margin="0,0,0,10"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" IsEnabled="{Binding IsChecked, ElementName=ChkReflexion}">
+                        <RadioButton x:Name="RadReflexion30" Content="30 s" IsChecked="True" Margin="0,0,15,0"/>
+                        <RadioButton x:Name="RadReflexion1" Content="1 min" Margin="0,0,15,0"/>
+                        <RadioButton x:Name="RadReflexion2" Content="2 min"/>
+                    </StackPanel>
+                </StackPanel>
             </GroupBox>
 
             <GroupBox Header="Règle de victoire" FontWeight="Bold" Margin="0,0,0,20" Padding="10">

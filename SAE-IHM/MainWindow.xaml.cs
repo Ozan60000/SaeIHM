@@ -17,26 +17,17 @@ namespace SAE_IHM
             // 1. Menu Jouer
             MenuJouer menuJouer = new MenuJouer();
             bool? veutNouvellePartie = menuJouer.ShowDialog();
-            if (veutNouvellePartie != true)
-            {
-                return;
-            }
+            if (veutNouvellePartie != true) return;
 
             // 2. Choix de l'adversaire
             ChoixAdversaire fenetreChoix = new ChoixAdversaire();
             bool? aChoisi = fenetreChoix.ShowDialog();
-            if (aChoisi != true)
-            {
-                return;
-            }
+            if (aChoisi != true) return;
 
             // 3. Règles de la partie (taille grille, alignement)
             Regles fenetreRegles = new Regles();
             bool? reglesOk = fenetreRegles.ShowDialog();
-            if (reglesOk != true)
-            {
-                return;
-            }
+            if (reglesOk != true) return;
 
             // 4. Lancement de la partie avec les paramètres choisis
             FenetreJeu ecranJeu = new FenetreJeu();
@@ -45,6 +36,10 @@ namespace SAE_IHM
             ecranJeu.NbColonnes = fenetreRegles.NbColonnes;
             ecranJeu.NbAAligner = fenetreRegles.NbAAligner;
 
+            // --- NOUVEAU : Transmission des chronos ---
+            ecranJeu.TempsChronoGlobale = fenetreRegles.TempsChronoGlobale;
+            ecranJeu.TempsReflexion = fenetreRegles.TempsReflexion;
+
             this.Hide();
             ecranJeu.ShowDialog();
             this.Show();
@@ -52,7 +47,6 @@ namespace SAE_IHM
 
         private void BtnParametres_Click(object sender, RoutedEventArgs e)
         {
-            // L'écran Paramètres servira plus tard pour l'accessibilité et la personnalisation
             Parametres fenetreParam = new Parametres();
             fenetreParam.ShowDialog();
         }
