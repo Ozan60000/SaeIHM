@@ -12,6 +12,9 @@ namespace SAE_IHM
         public ChoixForme()
         {
             InitializeComponent();
+
+            ConfigurationGlobale.AppliquerTheme(this);
+
             LblJ1.Text = "Joueur 1 : " + ConfigurationGlobale.FormeJ1;
             LblJ2.Text = "Joueur 2 : " + ConfigurationGlobale.FormeJ2;
         }

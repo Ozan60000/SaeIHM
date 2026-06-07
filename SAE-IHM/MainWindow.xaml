@@ -6,7 +6,8 @@
         mc:Ignorable="d"
         Title="Puissance 4 - Menu Principal" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
-        Closing="Window_Closing">
+        Closing="Window_Closing"
+        FocusManager.FocusedElement="{Binding ElementName=BtnJouer}">
 
     <Window.Resources>
         <Style TargetType="Button">
@@ -22,7 +23,8 @@
     </Window.Resources>
 
     <Grid Background="#FFECF0F1">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    KeyboardNavigation.DirectionalNavigation="Cycle">
 
             <TextBlock Text="PUISSANCE 4" 
                        FontSize="48" 

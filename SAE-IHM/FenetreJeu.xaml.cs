@@ -34,6 +34,9 @@ namespace SAE_IHM
         public FenetreJeu()
         {
             InitializeComponent();
+
+            ConfigurationGlobale.AppliquerTheme(this);
+
             this.Closed += (s, e) => { _timer?.Stop(); _timerIA?.Stop(); };
         }
 
@@ -75,6 +78,9 @@ namespace SAE_IHM
             _timerIA.Tick += TimerIA_Tick;
 
             InitialiserChronos();
+
+            // On donne le focus au bouton central de la première ligne pour démarrer au clavier
+            _grilleBoutons[0, NbColonnes / 2].Focus();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

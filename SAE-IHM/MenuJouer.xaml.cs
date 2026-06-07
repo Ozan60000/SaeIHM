@@ -7,6 +7,8 @@ namespace SAE_IHM
         public MenuJouer()
         {
             InitializeComponent();
+
+            ConfigurationGlobale.AppliquerTheme(this);
         }
 
         private void BtnNouvellePartie_Click(object sender, RoutedEventArgs e)

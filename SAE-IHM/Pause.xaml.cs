@@ -9,6 +9,8 @@ namespace SAE_IHM
         public Pause()
         {
             InitializeComponent();
+
+            ConfigurationGlobale.AppliquerTheme(this);
         }
 
         private void BtnReprendre_Click(object sender, RoutedEventArgs e)

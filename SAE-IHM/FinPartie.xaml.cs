@@ -11,6 +11,9 @@ namespace SAE_IHM
         public FinPartie(string messageFin, string messageScore)
         {
             InitializeComponent();
+
+            ConfigurationGlobale.AppliquerTheme(this);
+
             LblTitreFin.Text = messageFin;
             LblScore.Text = messageScore;
         }

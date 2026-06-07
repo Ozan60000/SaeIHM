@@ -3,14 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="PAUSE" Width="400" SizeToContent="Height"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="ToolWindow">
+        WindowStyle="ToolWindow"
+        FocusManager.FocusedElement="{Binding ElementName=BtnReprendre}">
 
     <Grid Background="#FFECF0F1" Margin="20">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300"
+                    KeyboardNavigation.DirectionalNavigation="Cycle">
 
             <TextBlock Text="PAUSE" FontSize="32" FontWeight="Bold" Foreground="#FF2C3E50" HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
-            <Button x:Name="BtnReprendre" Content="Reprendre la partie" Height="45" Margin="0,10,0,10" FontSize="16" FontWeight="SemiBold" Background="#FF2ECC71" Foreground="White" Cursor="Hand" Click="BtnReprendre_Click"/>
+            <Button x:Name="BtnReprendre" Content="Reprendre la partie" Height="45" Margin="0,10,0,10" FontSize="16" FontWeight="SemiBold" Background="#FF2ECC71" Foreground="White" Cursor="Hand" IsCancel="True" Click="BtnReprendre_Click"/>
 
             <Button x:Name="BtnMenu" Content="Revenir au menu principal" Height="45" Margin="0,10,0,10" FontSize="16" FontWeight="SemiBold" Background="#FF3498DB" Foreground="White" Cursor="Hand" Click="BtnMenu_Click"/>
 

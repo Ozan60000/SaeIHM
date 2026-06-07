@@ -19,6 +19,8 @@ namespace SAE_IHM
         public Regles()
         {
             InitializeComponent();
+
+            ConfigurationGlobale.AppliquerTheme(this);
         }
 
         private void BtnValider_Click(object sender, RoutedEventArgs e)

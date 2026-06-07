@@ -11,6 +11,7 @@ namespace SAE_IHM
         public ChoixAdversaire()
         {
             InitializeComponent();
+            ConfigurationGlobale.AppliquerTheme(this);
         }
 
         private void BtnAdvVirtuel_Click(object sender, RoutedEventArgs e)

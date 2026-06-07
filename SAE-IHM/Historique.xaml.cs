@@ -9,6 +9,8 @@ namespace SAE_IHM
         {
             InitializeComponent();
 
+            ConfigurationGlobale.AppliquerTheme(this);
+
             // On remplit la liste avec quelques parties d'exemple
             LstHistorique.Items.Add("Partie 1 - 04/06/2026 - Victoire");
             LstHistorique.Items.Add("Partie 2 - 03/06/2026 - Défaite");

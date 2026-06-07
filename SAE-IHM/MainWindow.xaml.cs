@@ -8,6 +8,8 @@ namespace SAE_IHM
         public MainWindow()
         {
             InitializeComponent();
+
+            ConfigurationGlobale.AppliquerTheme(this);
         }
 
         // --- ÉVÉNEMENTS DES BOUTONS ---

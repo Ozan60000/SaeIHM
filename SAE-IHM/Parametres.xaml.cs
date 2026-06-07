@@ -7,14 +7,39 @@ namespace SAE_IHM
         public Parametres()
         {
             InitializeComponent();
+
+            ConfigurationGlobale.AppliquerTheme(this);
+
+            // On positionne les sliders au bon endroit quand on ouvre la fenêtre
+            SldTailleTexte.Value = ConfigurationGlobale.TailleTexte;
+            SldContraste.Value = ConfigurationGlobale.Contraste;
         }
 
         private void SldTailleTexte_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // On change la taille du "A" d'aperçu dans le XAML si le slider bouge
             if (LblApercu != null)
             {
-                LblApercu.FontSize = e.NewValue;
+                LblApercu.FontSize = e.NewValue; // Garde l'aperçu du "A"
+                ConfigurationGlobale.TailleTexte = e.NewValue;
+                AppliquerPartout(); // Met à jour l'application en direct
+            }
+        }
+
+        private void SldContraste_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (IsLoaded) // Empêche le bug de déclenchement à l'ouverture de la fenêtre
+            {
+                ConfigurationGlobale.Contraste = e.NewValue;
+                AppliquerPartout(); // Met à jour l'application en direct
+            }
+        }
+
+        // Boucle magique : applique le thème à toutes les fenêtres ouvertes (y compris l'arrière-plan)
+        private void AppliquerPartout()
+        {
+            foreach (Window fenetre in Application.Current.Windows)
+            {
+                ConfigurationGlobale.AppliquerTheme(fenetre);
             }
         }
 

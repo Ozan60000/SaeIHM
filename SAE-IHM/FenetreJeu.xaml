@@ -35,8 +35,8 @@
                     <TextBlock x:Name="LblJoueur1" Text="Joueur 1" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
                     <ContentControl x:Name="IndicateurJ1" Width="22" Height="22" Margin="10,0,0,0"/>
                 </StackPanel>
-                <TextBlock x:Name="LblChronoJ1" Text="Chronomètre : --:--" FontSize="12" Margin="0,5,0,0" Foreground="#7F8C8D"/>
-                <TextBlock x:Name="LblReflexionJ1" Text="Temps de réflexion : --:--" FontSize="12" Foreground="#7F8C8D"/>
+                <TextBlock x:Name="LblChronoJ1" Text="Chronomètre : --:--" FontSize="12" Margin="0,5,0,0" Foreground="Black"/>
+                <TextBlock x:Name="LblReflexionJ1" Text="Temps de réflexion : --:--" FontSize="12" Foreground="Black"/>
             </StackPanel>
 
             <StackPanel Grid.Column="2" HorizontalAlignment="Right">
@@ -44,8 +44,8 @@
                     <ContentControl x:Name="IndicateurJ2" Width="22" Height="22" Margin="0,0,10,0"/>
                     <TextBlock x:Name="LblJoueur2" Text="Joueur 2" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
                 </StackPanel>
-                <TextBlock x:Name="LblChronoJ2" Text="Chronomètre : --:--" FontSize="12" Margin="0,5,0,0" HorizontalAlignment="Right" Foreground="#7F8C8D"/>
-                <TextBlock x:Name="LblReflexionJ2" Text="Temps de réflexion : --:--" FontSize="12" HorizontalAlignment="Right" Foreground="#7F8C8D"/>
+                <TextBlock x:Name="LblChronoJ2" Text="Chronomètre : --:--" FontSize="12" Margin="0,5,0,0" HorizontalAlignment="Right" Foreground="Black"/>
+                <TextBlock x:Name="LblReflexionJ2" Text="Temps de réflexion : --:--" FontSize="12" HorizontalAlignment="Right" Foreground="Black"/>
             </StackPanel>
         </Grid>
     </Grid>
