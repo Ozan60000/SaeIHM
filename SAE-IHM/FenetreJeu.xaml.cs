@@ -60,8 +60,8 @@ namespace SAE_IHM
                     btn.HorizontalContentAlignment = HorizontalAlignment.Stretch;
                     btn.VerticalContentAlignment = VerticalAlignment.Stretch;
 
-                    Ellipse rond = new Ellipse { Fill = Brushes.White, Stroke = Brushes.Black, StrokeThickness = 1, Margin = new Thickness(3), Stretch = Stretch.Uniform, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Stretch };
-                    btn.Content = rond;
+                    // C'est beaucoup plus propre comme ça !
+                    btn.Content = CreerForme("Cercle", Brushes.White);
 
                     _grilleBoutons[ligne, colonne] = btn;
                     GrillePlateau.Children.Add(btn);
@@ -115,24 +115,32 @@ namespace SAE_IHM
             };
         }
 
-        private Shape CreerForme(string nomForme, SolidColorBrush couleur)
+        // On change le retour "Shape" en "UIElement"
+        private UIElement CreerForme(string nomForme, SolidColorBrush couleur)
         {
+            // 1. On donne une taille fixe (40x40) à toutes nos formes pour qu'elles aient un ratio 1:1 parfait
             Shape forme = nomForme switch
             {
-                "Carré" => new Rectangle(),
-                "Losange" => new Path { Data = Geometry.Parse("M 20,0 L 40,20 L 20,40 L 0,20 Z") },
-                "Étoile" => new Path { Data = Geometry.Parse("M 20,0 L 25,15 L 40,15 L 28,25 L 32,40 L 20,30 L 8,40 L 12,25 L 0,15 L 15,15 Z") },
-                "Hexagone" => new Path { Data = Geometry.Parse("M 10,0 L 30,0 L 40,20 L 30,40 L 10,40 L 0,20 Z") },
-                _ => new Ellipse()
+                "Carré" => new Rectangle { Width = 40, Height = 40 },
+                "Losange" => new Path { Data = Geometry.Parse("M 20,0 L 40,20 L 20,40 L 0,20 Z"), Width = 40, Height = 40 },
+                "Étoile" => new Path { Data = Geometry.Parse("M 20,0 L 25,15 L 40,15 L 28,25 L 32,40 L 20,30 L 8,40 L 12,25 L 0,15 L 15,15 Z"), Width = 40, Height = 40 },
+                "Hexagone" => new Path { Data = Geometry.Parse("M 10,0 L 30,0 L 40,20 L 30,40 L 10,40 L 0,20 Z"), Width = 40, Height = 40 },
+                _ => new Ellipse { Width = 40, Height = 40 }
             };
+
             forme.Fill = couleur;
             forme.Stroke = Brushes.Black;
             forme.StrokeThickness = 1;
-            forme.Margin = new Thickness(5);
             forme.Stretch = Stretch.Uniform;
-            forme.HorizontalAlignment = HorizontalAlignment.Center;
-            forme.VerticalAlignment = VerticalAlignment.Center;
-            return forme;
+
+            // 2. On met notre forme dans un Viewbox magique !
+            // C'est lui qui va s'occuper d'agrandir l'étoile dans la grille (ex: 80x80)
+            // ou de la rétrécir dans les indicateurs en bas (22x22) avec un centrage parfait.
+            Viewbox vb = new Viewbox();
+            vb.Margin = new Thickness(3);
+            vb.Child = forme;
+
+            return vb;
         }
 
         private void InitialiserChronos()
@@ -259,8 +267,7 @@ namespace SAE_IHM
             {
                 for (int colonne = 0; colonne < NbColonnes; colonne++)
                 {
-                    Ellipse rond = new Ellipse { Fill = Brushes.White, Stroke = Brushes.Black, StrokeThickness = 1, Margin = new Thickness(3), Stretch = Stretch.Uniform, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Stretch };
-                    _grilleBoutons[ligne, colonne].Content = rond;
+                    _grilleBoutons[ligne, colonne].Content = CreerForme("Cercle", Brushes.White);
                 }
             }
             LblTourJoueur.Text = "C'est au tour de " + LblJoueur1.Text;
