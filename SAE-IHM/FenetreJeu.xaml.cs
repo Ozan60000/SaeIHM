@@ -73,6 +73,51 @@ namespace SAE_IHM
             InitialiserChronos();
         }
 
+        // --- GESTION DE LA PAUSE ---
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            // On vérifie que la touche est Echap et que le bouton pause est cliquable
+            if (e.Key == System.Windows.Input.Key.Escape && BtnPause.IsEnabled)
+            {
+                MettreEnPause();
+            }
+        }
+
+        private void BtnPause_Click(object sender, RoutedEventArgs e)
+        {
+            MettreEnPause();
+        }
+
+        private void MettreEnPause()
+        {
+            // Si la partie est finie ou déjà en pause, on ignore
+            if (_maPartie == null || _maPartie.EstTerminee || _verrouPopup) return;
+
+            // 1. On fige le temps de Thomas
+            _verrouPopup = true;
+            _timer?.Stop();
+
+            // 2. On ouvre la fenêtre de pause
+            Pause fenetrePause = new Pause();
+            fenetrePause.ShowDialog();
+
+            // 3. On traite le choix du joueur
+            if (fenetrePause.ActionChoisie == "Menu")
+            {
+                this.Close();
+            }
+            else if (fenetrePause.ActionChoisie == "Quitter")
+            {
+                Application.Current.Shutdown();
+            }
+            else // "Reprendre" ou s'il a cliqué sur la croix rouge
+            {
+                // On relance le temps
+                _verrouPopup = false;
+                _timer?.Start();
+            }
+        }
+
         private void InitialiserChronos()
         {
             _verrouPopup = false;

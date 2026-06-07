@@ -4,7 +4,8 @@
         Title="Puissance 4" Height="700" Width="850"
         WindowStartupLocation="CenterScreen"
         Background="#ECF0F1"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        KeyDown="Window_KeyDown">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -13,13 +14,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" x:Name="LblTitre" Text="Partie"
-                   FontSize="18" FontWeight="Bold"
-                   Foreground="#2C3E50" Margin="0,0,0,5"/>
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <TextBlock x:Name="LblTitre" Text="Partie" FontSize="18" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
-        <TextBlock Grid.Row="0" x:Name="LblTourJoueur" Text="C'est au tour de..."
-                   HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                   FontSize="16" Margin="0,0,0,10"/>
+            <TextBlock x:Name="LblTourJoueur" Text="C'est au tour de..." HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="16"/>
+
+            <Button x:Name="BtnPause" Content="II" Width="40" Height="40" FontSize="18" FontWeight="Bold" Background="#FF95A5A6" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Top" Cursor="Hand" Click="BtnPause_Click"/>
+        </Grid>
 
         <Border Grid.Row="1" Background="#3498DB" CornerRadius="10" Padding="10">
             <UniformGrid x:Name="GrillePlateau"/>
