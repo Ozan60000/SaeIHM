@@ -5,34 +5,29 @@ namespace SAE_IHM
 {
     public partial class ChoixCouleur : Window
     {
-        // Couleurs sélectionnées par chaque joueur (par défaut)
-        private string _couleurJ1 = "Rouge";
-        private string _couleurJ2 = "Jaune";
-
         public ChoixCouleur()
         {
             InitializeComponent();
+            // On charge les couleurs actuelles à l'ouverture
+            LblJ1.Text = "Joueur 1 : " + ConfigurationGlobale.CouleurJ1;
+            LblJ2.Text = "Joueur 2 : " + ConfigurationGlobale.CouleurJ2;
         }
 
         private void BtnCouleur_Click(object sender, RoutedEventArgs e)
         {
-            // On récupère le nom de la couleur via le Tag du bouton
             Button btn = (Button)sender;
-            string nomCouleur = btn.Tag?.ToString() ?? "";
+            string nomCouleur = btn.Tag?.ToString() ?? "Rouge";
 
-            // On applique la couleur au joueur actuellement sélectionné
+            // Si c'est aléatoire, on triche un peu en mettant une couleur fixe pour l'exemple
+            if (nomCouleur == "Aléatoire") nomCouleur = "Bleu";
+
             if (RadJ1.IsChecked == true)
-            {
-                _couleurJ1 = nomCouleur;
-            }
+                ConfigurationGlobale.CouleurJ1 = nomCouleur;
             else
-            {
-                _couleurJ2 = nomCouleur;
-            }
+                ConfigurationGlobale.CouleurJ2 = nomCouleur;
 
-            // On met à jour l'affichage en bas
-            LblJ1.Text = "Joueur 1 : " + _couleurJ1;
-            LblJ2.Text = "Joueur 2 : " + _couleurJ2;
+            LblJ1.Text = "Joueur 1 : " + ConfigurationGlobale.CouleurJ1;
+            LblJ2.Text = "Joueur 2 : " + ConfigurationGlobale.CouleurJ2;
         }
 
         private void BtnFermer_Click(object sender, RoutedEventArgs e)

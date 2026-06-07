@@ -1,35 +1,38 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SAE_IHM
 {
     public partial class ChoixForme : Window
     {
-        // Formes sélectionnées par défaut
-        private string _formeJ1 = "Cercle";
-        private string _formeJ2 = "Cercle";
+        private readonly string[] _formesDisponibles = { "Cercle", "Carré", "Losange", "Étoile", "Hexagone" };
+        private Random _rnd = new Random();
 
         public ChoixForme()
         {
             InitializeComponent();
+            LblJ1.Text = "Joueur 1 : " + ConfigurationGlobale.FormeJ1;
+            LblJ2.Text = "Joueur 2 : " + ConfigurationGlobale.FormeJ2;
         }
 
         private void BtnForme_Click(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
-            string nomForme = btn.Tag?.ToString() ?? "";
+            string choix = btn.Tag?.ToString() ?? "Cercle";
+
+            if (choix == "Aléatoire")
+            {
+                choix = _formesDisponibles[_rnd.Next(_formesDisponibles.Length)];
+            }
 
             if (RadJ1.IsChecked == true)
-            {
-                _formeJ1 = nomForme;
-            }
+                ConfigurationGlobale.FormeJ1 = choix;
             else
-            {
-                _formeJ2 = nomForme;
-            }
+                ConfigurationGlobale.FormeJ2 = choix;
 
-            LblJ1.Text = "Joueur 1 : " + _formeJ1;
-            LblJ2.Text = "Joueur 2 : " + _formeJ2;
+            LblJ1.Text = "Joueur 1 : " + ConfigurationGlobale.FormeJ1;
+            LblJ2.Text = "Joueur 2 : " + ConfigurationGlobale.FormeJ2;
         }
 
         private void BtnFermer_Click(object sender, RoutedEventArgs e)

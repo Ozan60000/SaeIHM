@@ -14,11 +14,28 @@
                 <RadioButton x:Name="RadJ2" Content="Joueur 2" VerticalAlignment="Center"/>
             </StackPanel>
 
-            <UniformGrid Rows="2" Columns="2" Height="150">
-                <Button Tag="Cercle" Content="Cercle" Margin="5" FontSize="14" Click="BtnForme_Click"/>
-                <Button Tag="Carré" Content="Carré" Margin="5" FontSize="14" Click="BtnForme_Click"/>
-                <Button Tag="Losange" Content="Losange" Margin="5" FontSize="14" Click="BtnForme_Click"/>
-                <Button Tag="Étoile" Content="Étoile" Margin="5" FontSize="14" Click="BtnForme_Click"/>
+            <UniformGrid Rows="2" Columns="3" Height="200">
+                <Button Tag="Aléatoire" Margin="5" Click="BtnForme_Click" Content="Aléatoire" FontWeight="Bold"/>
+
+                <Button Tag="Cercle" Margin="5" Click="BtnForme_Click">
+                    <Ellipse Width="40" Height="40" Stroke="Black" StrokeThickness="2" Fill="Transparent"/>
+                </Button>
+
+                <Button Tag="Carré" Margin="5" Click="BtnForme_Click">
+                    <Rectangle Width="40" Height="40" Stroke="Black" StrokeThickness="2" Fill="Transparent"/>
+                </Button>
+
+                <Button Tag="Losange" Margin="5" Click="BtnForme_Click">
+                    <Path Data="M 20,0 L 40,20 L 20,40 L 0,20 Z" Stroke="Black" StrokeThickness="2" Fill="Transparent"/>
+                </Button>
+
+                <Button Tag="Étoile" Margin="5" Click="BtnForme_Click">
+                    <Path Data="M 20,0 L 25,15 L 40,15 L 28,25 L 32,40 L 20,30 L 8,40 L 12,25 L 0,15 L 15,15 Z" Stroke="Black" StrokeThickness="2" Fill="Transparent"/>
+                </Button>
+
+                <Button Tag="Hexagone" Margin="5" Click="BtnForme_Click">
+                    <Path Data="M 10,0 L 30,0 L 40,20 L 30,40 L 10,40 L 0,20 Z" Stroke="Black" StrokeThickness="2" Fill="Transparent"/>
+                </Button>
             </UniformGrid>
 
             <Border Background="White" CornerRadius="5" Padding="10" Margin="0,15,0,0">

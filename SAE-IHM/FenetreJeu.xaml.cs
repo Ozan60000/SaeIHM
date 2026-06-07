@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
@@ -14,7 +15,6 @@ namespace SAE_IHM
         public int NbLignes { get; set; } = 6;
         public int NbColonnes { get; set; } = 7;
         public int NbAAligner { get; set; } = 4;
-
         public int TempsChronoGlobale { get; set; } = 0;
         public int TempsReflexion { get; set; } = 0;
 
@@ -29,6 +29,7 @@ namespace SAE_IHM
         private int _tempsRestantGlobalJ2;
         private int _tempsRestantReflexion;
         private bool _verrouPopup = false;
+        private readonly object _verrouMoteur = new object();
 
         public FenetreJeu()
         {
@@ -59,7 +60,7 @@ namespace SAE_IHM
                     btn.HorizontalContentAlignment = HorizontalAlignment.Stretch;
                     btn.VerticalContentAlignment = VerticalAlignment.Stretch;
 
-                    Ellipse rond = new Ellipse { Fill = Brushes.White, Stroke = Brushes.Black, StrokeThickness = 1, Margin = new Thickness(3), Stretch = Stretch.Uniform };
+                    Ellipse rond = new Ellipse { Fill = Brushes.White, Stroke = Brushes.Black, StrokeThickness = 1, Margin = new Thickness(3), Stretch = Stretch.Uniform, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Stretch };
                     btn.Content = rond;
 
                     _grilleBoutons[ligne, colonne] = btn;
@@ -67,20 +68,18 @@ namespace SAE_IHM
                 }
             }
 
+            IndicateurJ1.Content = CreerForme(ConfigurationGlobale.FormeJ1, ObtenirCouleur(ConfigurationGlobale.CouleurJ1));
+            IndicateurJ2.Content = CreerForme(ConfigurationGlobale.FormeJ2, ObtenirCouleur(ConfigurationGlobale.CouleurJ2));
+
             _timerIA = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
             _timerIA.Tick += TimerIA_Tick;
 
             InitialiserChronos();
         }
 
-        // --- GESTION DE LA PAUSE ---
-        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            // On vérifie que la touche est Echap et que le bouton pause est cliquable
-            if (e.Key == System.Windows.Input.Key.Escape && BtnPause.IsEnabled)
-            {
-                MettreEnPause();
-            }
+            if (e.Key == Key.Escape && BtnPause.IsEnabled) MettreEnPause();
         }
 
         private void BtnPause_Click(object sender, RoutedEventArgs e)
@@ -90,32 +89,50 @@ namespace SAE_IHM
 
         private void MettreEnPause()
         {
-            // Si la partie est finie ou déjà en pause, on ignore
             if (_maPartie == null || _maPartie.EstTerminee || _verrouPopup) return;
 
-            // 1. On fige le temps de Thomas
             _verrouPopup = true;
             _timer?.Stop();
 
-            // 2. On ouvre la fenêtre de pause
             Pause fenetrePause = new Pause();
             fenetrePause.ShowDialog();
 
-            // 3. On traite le choix du joueur
-            if (fenetrePause.ActionChoisie == "Menu")
+            if (fenetrePause.ActionChoisie == "Menu") this.Close();
+            else if (fenetrePause.ActionChoisie == "Quitter") Application.Current.Shutdown();
+            else { _verrouPopup = false; _timer?.Start(); }
+        }
+
+        private SolidColorBrush ObtenirCouleur(string nomCouleur)
+        {
+            return nomCouleur switch
             {
-                this.Close();
-            }
-            else if (fenetrePause.ActionChoisie == "Quitter")
+                "Rouge" => Brushes.Red,
+                "Jaune" => Brushes.Gold,
+                "Bleu" => Brushes.MidnightBlue,
+                "Violet" => Brushes.MediumPurple,
+                "Vert" => Brushes.ForestGreen,
+                _ => Brushes.Gray,
+            };
+        }
+
+        private Shape CreerForme(string nomForme, SolidColorBrush couleur)
+        {
+            Shape forme = nomForme switch
             {
-                Application.Current.Shutdown();
-            }
-            else // "Reprendre" ou s'il a cliqué sur la croix rouge
-            {
-                // On relance le temps
-                _verrouPopup = false;
-                _timer?.Start();
-            }
+                "Carré" => new Rectangle(),
+                "Losange" => new Path { Data = Geometry.Parse("M 20,0 L 40,20 L 20,40 L 0,20 Z") },
+                "Étoile" => new Path { Data = Geometry.Parse("M 20,0 L 25,15 L 40,15 L 28,25 L 32,40 L 20,30 L 8,40 L 12,25 L 0,15 L 15,15 Z") },
+                "Hexagone" => new Path { Data = Geometry.Parse("M 10,0 L 30,0 L 40,20 L 30,40 L 10,40 L 0,20 Z") },
+                _ => new Ellipse()
+            };
+            forme.Fill = couleur;
+            forme.Stroke = Brushes.Black;
+            forme.StrokeThickness = 1;
+            forme.Margin = new Thickness(5);
+            forme.Stretch = Stretch.Uniform;
+            forme.HorizontalAlignment = HorizontalAlignment.Center;
+            forme.VerticalAlignment = VerticalAlignment.Center;
+            return forme;
         }
 
         private void InitialiserChronos()
@@ -142,7 +159,6 @@ namespace SAE_IHM
                 if (_maPartie.JoueurCourant.Id == 1) _tempsRestantGlobalJ1--; else _tempsRestantGlobalJ2--;
                 if (_tempsRestantGlobalJ1 <= 0 || _tempsRestantGlobalJ2 <= 0)
                 {
-                    _verrouPopup = true; _timer.Stop();
                     AfficherEcranFin($"Victoire de {(_tempsRestantGlobalJ1 <= 0 ? LblJoueur2.Text : LblJoueur1.Text)} (Temps écoulé)");
                     return;
                 }
@@ -155,10 +171,10 @@ namespace SAE_IHM
                 {
                     _timer.Stop();
                     MessageBox.Show("Temps de réflexion écoulé !");
-                    _maPartie.ChangerJoueur();
+                    lock (_verrouMoteur) { _maPartie.ChangerJoueur(); }
                     _tempsRestantReflexion = TempsReflexion;
                     _timer.Start();
-                    if (_maPartie.JoueurCourant is JoueurIA) _timerIA.Start();
+                    if (_maPartie.JoueurCourant is JoueurIA) { _verrouPopup = true; _timerIA.Start(); }
                 }
             }
             MettreAJourAffichageTemps();
@@ -182,15 +198,20 @@ namespace SAE_IHM
         private void Case_Click(object sender, RoutedEventArgs e)
         {
             if (_maPartie == null || _maPartie.EstTerminee || _verrouPopup || _maPartie.JoueurCourant is JoueurIA) return;
-            TraiterCoup((int)((Button)sender).Tag);
+            lock (_verrouMoteur) { TraiterCoup((int)((Button)sender).Tag); }
         }
 
         private void TimerIA_Tick(object? sender, EventArgs e)
         {
             _timerIA.Stop();
-            _verrouPopup = false;
-            if (_maPartie != null && !_maPartie.EstTerminee && _maPartie.JoueurCourant is JoueurIA ia)
-                TraiterCoup(ia.ChoisirCoup(_maPartie.GrilleJeu));
+            lock (_verrouMoteur)
+            {
+                if (_maPartie != null && !_maPartie.EstTerminee && _maPartie.JoueurCourant is JoueurIA ia)
+                {
+                    int col = ia.ChoisirCoup(_maPartie.GrilleJeu);
+                    if (col != -1) TraiterCoup(col);
+                }
+            }
         }
 
         private void TraiterCoup(int colonne)
@@ -202,7 +223,10 @@ namespace SAE_IHM
             int idActuel = _maPartie.JoueurCourant.Id;
             if (_maPartie.JouerCoup(colonne))
             {
-                ((Ellipse)_grilleBoutons[ligneCible, colonne].Content).Fill = (idActuel == 1) ? Brushes.Red : Brushes.Gold;
+                SolidColorBrush couleurJoueur = (idActuel == 1) ? ObtenirCouleur(ConfigurationGlobale.CouleurJ1) : ObtenirCouleur(ConfigurationGlobale.CouleurJ2);
+                string formeJoueur = (idActuel == 1) ? ConfigurationGlobale.FormeJ1 : ConfigurationGlobale.FormeJ2;
+
+                _grilleBoutons[ligneCible, colonne].Content = CreerForme(formeJoueur, couleurJoueur);
                 _tempsRestantReflexion = TempsReflexion;
 
                 if (_maPartie.EstTerminee) AfficherEcranFin(_maPartie.EstEgalite ? "Égalité" : $"Victoire de {_maPartie.Gagnant!.Nom}");
@@ -210,7 +234,9 @@ namespace SAE_IHM
                 {
                     LblTourJoueur.Text = "C'est au tour de " + (_maPartie.JoueurCourant.Id == 1 ? LblJoueur1.Text : LblJoueur2.Text);
                     MettreAJourAffichageTemps();
+
                     if (_maPartie.JoueurCourant is JoueurIA) { _verrouPopup = true; _timerIA.Start(); }
+                    else { _verrouPopup = false; }
                 }
             }
         }
@@ -218,6 +244,7 @@ namespace SAE_IHM
         private void AfficherEcranFin(string titre)
         {
             _verrouPopup = true; _timer?.Stop(); _timerIA?.Stop();
+            if (titre.Contains("Victoire")) { if (_maPartie.Gagnant?.Id == 1) _scoreJ1++; else _scoreJ2++; }
             FinPartie fin = new FinPartie(titre, $"Score : J1 {_scoreJ1} - {_scoreJ2} J2");
             fin.ShowDialog();
             if (fin.ActionChoisie == "Relancer") RelancerPartie();
@@ -228,9 +255,17 @@ namespace SAE_IHM
         private void RelancerPartie()
         {
             _maPartie = new Partie(NbLignes, NbColonnes, NbAAligner, _maPartie.Joueur1, _maPartie.Joueur2);
-            foreach (var b in _grilleBoutons) ((Ellipse)b.Content).Fill = Brushes.White;
+            for (int ligne = 0; ligne < NbLignes; ligne++)
+            {
+                for (int colonne = 0; colonne < NbColonnes; colonne++)
+                {
+                    Ellipse rond = new Ellipse { Fill = Brushes.White, Stroke = Brushes.Black, StrokeThickness = 1, Margin = new Thickness(3), Stretch = Stretch.Uniform, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Stretch };
+                    _grilleBoutons[ligne, colonne].Content = rond;
+                }
+            }
             LblTourJoueur.Text = "C'est au tour de " + LblJoueur1.Text;
             InitialiserChronos();
+            if (_maPartie.JoueurCourant is JoueurIA) { _verrouPopup = true; _timerIA.Start(); }
         }
     }
 }

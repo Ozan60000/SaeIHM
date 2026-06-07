@@ -11,7 +11,7 @@ namespace SAE_IHM
 
         private void SldTailleTexte_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // On change la taille du "A" d'aperçu pour visualiser le changement
+            // On change la taille du "A" d'aperçu dans le XAML si le slider bouge
             if (LblApercu != null)
             {
                 LblApercu.FontSize = e.NewValue;
@@ -20,14 +20,12 @@ namespace SAE_IHM
 
         private void BtnCouleurs_Click(object sender, RoutedEventArgs e)
         {
-            // Ouverture du pop-up de choix de couleur
             ChoixCouleur fenetreCouleur = new ChoixCouleur();
             fenetreCouleur.ShowDialog();
         }
 
         private void BtnFormes_Click(object sender, RoutedEventArgs e)
         {
-            // Ouverture du pop-up de choix de forme
             ChoixForme fenetreForme = new ChoixForme();
             fenetreForme.ShowDialog();
         }
