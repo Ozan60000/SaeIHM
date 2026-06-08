@@ -62,6 +62,14 @@ namespace Puissance4_Systeme
         
         private int Minimax(Grille grille, Noeud noeudCourant, int profondeur, int alpha, int beta, bool estMax)
         {
+<<<<<<< HEAD
+=======
+            if (grille.VerifierVictoire(derniereLigne, derniereCol, 4))
+                return maximisant ? int.MinValue + 100 : int.MaxValue - 100;
+
+            if (profondeur == 0) return EvaluerGrille(grille);
+
+>>>>>>> 04948de57b67b3ec1f1c96ec1c0bb56b192f3354
             int adversaireId = (this.Id == 1) ? 2 : 1;
             
             // Vérification de victoire dans l'anticipation

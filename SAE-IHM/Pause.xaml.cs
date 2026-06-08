@@ -9,7 +9,6 @@ namespace SAE_IHM
         public Pause()
         {
             InitializeComponent();
-
             ConfigurationGlobale.AppliquerTheme(this);
         }
 
