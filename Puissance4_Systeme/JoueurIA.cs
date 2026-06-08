@@ -48,7 +48,6 @@ namespace Puissance4_Systeme
 
         private int Minimax(Grille grille, int profondeur, int alpha, int beta, bool maximisant, int derniereLigne, int derniereCol)
         {
-            // Condition d'arrêt : Profondeur atteinte ou victoire
             if (grille.VerifierVictoire(derniereLigne, derniereCol, 4))
                 return maximisant ? int.MinValue + 100 : int.MaxValue - 100;
 
@@ -94,7 +93,6 @@ namespace Puissance4_Systeme
 
         private int EvaluerGrille(Grille grille)
         {
-            // Heuristique simple : favorise le centre
             int score = 0;
             for (int l = 0; l < grille.NbLignes; l++)
             {

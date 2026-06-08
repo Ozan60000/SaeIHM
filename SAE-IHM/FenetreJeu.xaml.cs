@@ -34,9 +34,7 @@ namespace SAE_IHM
         public FenetreJeu()
         {
             InitializeComponent();
-
             ConfigurationGlobale.AppliquerTheme(this);
-
             this.Closed += (s, e) => { _timer?.Stop(); _timerIA?.Stop(); };
         }
 
@@ -63,7 +61,6 @@ namespace SAE_IHM
                     btn.HorizontalContentAlignment = HorizontalAlignment.Stretch;
                     btn.VerticalContentAlignment = VerticalAlignment.Stretch;
 
-                    // C'est beaucoup plus propre comme ça !
                     btn.Content = CreerForme("Cercle", Brushes.White);
 
                     _grilleBoutons[ligne, colonne] = btn;
@@ -79,7 +76,6 @@ namespace SAE_IHM
 
             InitialiserChronos();
 
-            // On donne le focus au bouton central de la première ligne pour démarrer au clavier
             _grilleBoutons[0, NbColonnes / 2].Focus();
         }
 
@@ -121,10 +117,8 @@ namespace SAE_IHM
             };
         }
 
-        // On change le retour "Shape" en "UIElement"
         private UIElement CreerForme(string nomForme, SolidColorBrush couleur)
         {
-            // 1. On donne une taille fixe (40x40) à toutes nos formes pour qu'elles aient un ratio 1:1 parfait
             Shape forme = nomForme switch
             {
                 "Carré" => new Rectangle { Width = 40, Height = 40 },
@@ -139,9 +133,6 @@ namespace SAE_IHM
             forme.StrokeThickness = 1;
             forme.Stretch = Stretch.Uniform;
 
-            // 2. On met notre forme dans un Viewbox magique !
-            // C'est lui qui va s'occuper d'agrandir l'étoile dans la grille (ex: 80x80)
-            // ou de la rétrécir dans les indicateurs en bas (22x22) avec un centrage parfait.
             Viewbox vb = new Viewbox();
             vb.Margin = new Thickness(3);
             vb.Child = forme;

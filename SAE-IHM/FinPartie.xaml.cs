@@ -4,16 +4,12 @@ namespace SAE_IHM
 {
     public partial class FinPartie : Window
     {
-        // Permet de savoir quel bouton a été cliqué ("Relancer", "Menu", ou "Quitter")
         public string ActionChoisie { get; private set; } = "Menu";
 
-        // Le constructeur prend les textes à afficher en paramètres
         public FinPartie(string messageFin, string messageScore)
         {
             InitializeComponent();
-
             ConfigurationGlobale.AppliquerTheme(this);
-
             LblTitreFin.Text = messageFin;
             LblScore.Text = messageScore;
         }
@@ -32,7 +28,6 @@ namespace SAE_IHM
 
         private void BtnQuitter_Click(object sender, RoutedEventArgs e)
         {
-            // Le fameux pop-up de confirmation de la maquette
             MessageBoxResult resultat = MessageBox.Show(
                 "Êtes vous sûr de vouloir quitter le jeu ?",
                 "Quitter",
@@ -44,7 +39,6 @@ namespace SAE_IHM
                 ActionChoisie = "Quitter";
                 this.Close();
             }
-            // Si "Non", on ne fait rien, la pop-up se ferme et on reste sur la fenêtre de fin
         }
     }
 }

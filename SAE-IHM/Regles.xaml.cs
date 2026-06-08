@@ -6,31 +6,25 @@ namespace SAE_IHM
 {
     public partial class Regles : Window
     {
-        // Propriétés lues par la MainWindow après validation
         public int NbLignes { get; private set; }
         public int NbColonnes { get; private set; }
         public int NbAAligner { get; private set; }
 
-        // --- NOUVEAUX PARAMÈTRES DE TEMPS (en secondes) ---
-        // 0 signifie que l'option est désactivée
         public int TempsChronoGlobale { get; private set; }
         public int TempsReflexion { get; private set; }
 
         public Regles()
         {
             InitializeComponent();
-
             ConfigurationGlobale.AppliquerTheme(this);
         }
 
         private void BtnValider_Click(object sender, RoutedEventArgs e)
         {
-            // Récupération des valeurs classiques
             NbLignes = Convert.ToInt32(((ComboBoxItem)CboLignes.SelectedItem).Content);
             NbColonnes = Convert.ToInt32(((ComboBoxItem)CboColonnes.SelectedItem).Content);
             NbAAligner = Convert.ToInt32(((ComboBoxItem)CboAlignement.SelectedItem).Content);
 
-            // Récupération du temps global (conversion en secondes)
             TempsChronoGlobale = 0;
             if (ChkChrono.IsChecked == true)
             {
@@ -39,7 +33,6 @@ namespace SAE_IHM
                 else if (RadChrono10.IsChecked == true) TempsChronoGlobale = 600;
             }
 
-            // Récupération du temps de réflexion (conversion en secondes)
             TempsReflexion = 0;
             if (ChkReflexion.IsChecked == true)
             {

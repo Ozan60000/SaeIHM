@@ -8,7 +8,6 @@
 
         public override int ChoisirCoup(Grille grille)
         {
-            // Le joueur humain clique sur l'interface graphique, l'IA ne fait rien ici
             return -1;
         }
     }
