@@ -1,10 +1,10 @@
-# 🎮 Puissance 4 - Application WPF (SAE 2.01, 2.02, 2.04)
+#  Puissance 4 - Application WPF (SAE 2.01, 2.02, 2.04)
 
 Bienvenue sur le dépôt de notre projet transversal de fin d'année ! 
 
 Ce projet est une implémentation du jeu **Puissance 4**, développée en **C#** avec une interface graphique **WPF**. Il met en pratique les concepts d'ergonomie (IHM), de conception orientée objet et d'intelligence artificielle.
 
-## 🌟 Fonctionnalités principales
+##  Fonctionnalités principales
 
 * **Parties sur mesure :**
     * Taille de la grille dynamique et modifiable (de 4x4 jusqu'à 10x10).
@@ -22,7 +22,7 @@ Ce projet est une implémentation du jeu **Puissance 4**, développée en **C#**
     * Suivi du score global des joueurs sur la session en cours.
     * Écrans de fin de partie interactifs avec options de relance rapide.
 
-## 🏗️ Architecture du Projet
+##  Architecture du Projet
 
 Le projet respecte une séparation entre le moteur logique et l'interface utilisateur :
 
@@ -36,7 +36,7 @@ Le projet respecte une séparation entre le moteur logique et l'interface utilis
 * **IDE :** Visual Studio
 * **Gestion de version :** Git & GitHub
 
-## 🚀 Comment lancer le projet ?
+##  Comment lancer le projet ?
 
 1. Clonez ce dépôt sur votre machine locale : 
    `git clone https://github.com/Ozan60000/SaeIHM.git`
